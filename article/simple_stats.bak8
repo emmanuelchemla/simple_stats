@@ -347,7 +347,7 @@ on the logit scale does not.
 \label{sec:social}
 
 The widespread adoption of complex models is not driven by evidence that
-they improve inference.  It is driven however by a genuine desire to do well.
+they improve inference.  It is driven by a genuine desire to do well.
 Scientists are virtuous, and that virtue is self-reinforcing: a paper is
 returned with a request for a ``more appropriate'' model; the authors
 comply, not only to get published but because they believe it is the
