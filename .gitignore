@@ -4,6 +4,9 @@ __pycache__/
 .venv/
 *.egg-info/
 
+# Others
+/.claude
+
 # Generated figures
 code/*.pdf
 code/*.png
