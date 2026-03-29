@@ -30,25 +30,25 @@
 \maketitle
 
 \begin{abstract}
-	\noindent
-	The current standard in experimental psychology---maximal mixed-effects
-	models, logistic link for binary data---is defended on theoretical
-	grounds that do not survive contact with real data.  We document four
-	layers of failure.  \textit{Technically}: maximal models routinely fail
-	to converge, and the five desiderata taught as good practice are
-	mutually inconsistent for logistic designs, making pre-registration
-	effectively impossible.  \textit{Theoretically}: the models rest on
-	an implicit variance-homogeneity assumption that is untested and often
-	violated; the log-odds scale is not psychologically meaningful; and the
-	central limit theorem already justifies treating binary outcomes as
-	Gaussian, with no loss of power.  \textit{Empirically}: simple tests
-	match complex models in Type~I error control and power, and logistic
-	models can silently contradict the data when outcomes are near ceiling.
-	\textit{Socially}: complexity is adopted to satisfy reviewers, not to
-	improve inference, at a large cost in researcher time and
-	comprehension.  The remedy is to use the simplest test compatible
-	with the research question---a paired $t$-test, a sign test, a
-	$\chi^2$---and to understand it completely.
+  \noindent
+  The current standard in experimental psychology---maximal mixed-effects
+  models, logistic link for binary data---is defended on theoretical
+  grounds that do not survive contact with real data.  We document four
+  layers of failure.  \textit{Technically}: maximal models routinely fail
+  to converge, and the five desiderata taught as good practice are
+  mutually inconsistent for logistic designs, making pre-registration
+  effectively impossible.  \textit{Theoretically}: the models rest on
+  an implicit variance-homogeneity assumption that is untested and often
+  violated; the log-odds scale is not psychologically meaningful; and the
+  central limit theorem already justifies treating binary outcomes as
+  Gaussian, with no loss of power.  \textit{Empirically}: simple tests
+  match complex models in Type~I error control and power, and logistic
+  models can silently contradict the data when outcomes are near ceiling.
+  \textit{Socially}: complexity is adopted to satisfy reviewers, not to
+  improve inference, at a large cost in researcher time and
+  comprehension.  The remedy is to use the simplest test compatible
+  with the research question---a paired $t$-test, a sign test, a
+  $\chi^2$---and to understand it completely.
 \end{abstract}
 
 % ================================================================
@@ -57,7 +57,7 @@
 
 A recurring theme in methodological debates in psychology is the demand
 for more complex statistical models \citep{barr2013random,
-	matuschek2017balancing}.  The argument is compelling in principle: if
+  matuschek2017balancing}.  The argument is compelling in principle: if
 participants and items both contribute variance, ignoring one source
 produces anti-conservative $p$-values.  The most influential prescription
 is \emph{keep it maximal} \citep{barr2013random}: include every random
@@ -70,15 +70,15 @@ reproducible science---technically, theoretically, empirically, and
 socially---and that a coherent, simpler alternative exists.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig1_forking_paths.pdf}
-	\caption{The number of distinct random-effects structures for a
-		standard 2\(\times\)2 within-subjects design crossed with items.
-		Left: model count by total number of random-effects parameters.
-		Right: share of minimal, intermediate, and maximal configurations.
-		The analyst faces hundreds of plausible model formulas before
-		seeing any data.}
-	\label{fig:forking}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig1_forking_paths.pdf}
+  \caption{The number of distinct random-effects structures for a
+    standard 2\(\times\)2 within-subjects design crossed with items.
+    Left: model count by total number of random-effects parameters.
+    Right: share of minimal, intermediate, and maximal configurations.
+    The analyst faces hundreds of plausible model formulas before
+    seeing any data.}
+  \label{fig:forking}
 \end{figure}
 
 Figure~\ref{fig:forking} gives a first indication of the problem.
@@ -100,25 +100,17 @@ false-positive rates in confirmatory research.  Its value depends on
 specificity: the exact model must be named before data collection.
 
 Maximal mixed models are incompatible with this requirement because they
-routinely fail to converge at sample sizes common in psychology.  The
-reason is simple: a maximal model for a 2-condition within-subjects
-design estimates a random-effects covariance matrix with 3 free
-parameters (two variances, one correlation) from as many data points as
-there are participants.  With 30 subjects and 5 or more random-effects
-parameters, the likelihood surface is nearly flat and the optimizer
-cannot find a reliable maximum.  Convergence failure is not a software
-problem; it is a symptom of asking too many questions from too little
-data.
+fail to converge at sample sizes common in psychology.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.75\linewidth]{../code/fig2_convergence.pdf}
-	\caption{Convergence rate as a function of sample size and model
-		complexity for a two-condition within-subjects design (20 items per
-		condition).  Maximal models converge reliably only with very large
-		samples.  The paired $t$-test, which requires no iterative
-		optimization, always converges.}
-	\label{fig:convergence}
+  \centering
+  \includegraphics[width=0.75\linewidth]{../code/fig2_convergence.pdf}
+  \caption{Convergence rate as a function of sample size and model
+    complexity for a two-condition within-subjects design (20 items per
+    condition).  Maximal models converge reliably only with very large
+    samples.  The paired $t$-test, which requires no iterative
+    optimization, always converges.}
+  \label{fig:convergence}
 \end{figure}
 
 Figure~\ref{fig:convergence} shows convergence rates dropping sharply
@@ -137,15 +129,15 @@ The failure is sharpest for binary outcomes.  Consider five desiderata,
 each individually defensible:
 
 \begin{enumerate}[label=(\alph*)]
-	\item \textbf{Analyze all the data} rather than subsets
-	      \citep[cf.][]{barr2013random}.
-	\item \textbf{Use a maximal model} including all warranted random slopes
-	      \citep{barr2013random}.
-	\item \textbf{Simplify until convergence} when the maximal model fails,
-	      which for logistic mixed models is the rule.
-	\item \textbf{Compare models with identical RE structures} when computing
-	      likelihood-ratio tests \citep{barr2013random}.
-	\item \textbf{Pre-register the analysis} before data collection.
+  \item \textbf{Analyze all the data} rather than subsets
+        \citep[cf.][]{barr2013random}.
+  \item \textbf{Use a maximal model} including all warranted random slopes
+        \citep{barr2013random}.
+  \item \textbf{Simplify until convergence} when the maximal model fails,
+        which for logistic mixed models is the rule.
+  \item \textbf{Compare models with identical RE structures} when computing
+        likelihood-ratio tests \citep{barr2013random}.
+  \item \textbf{Pre-register the analysis} before data collection.
 \end{enumerate}
 
 The combination of (c), (d), and (e) is \emph{internally inconsistent}.
@@ -159,9 +151,9 @@ same RE structure, so the simplification path must be identical in both.
 Consider a single four-level factor requiring three predictors ($a$,
 $b$, $c$).  The maximal model is:
 \begin{equation}
-	\texttt{Resp} \sim 1 + a + b + c
-	+ (1 + a + b + c \mid \text{subject}) + (1 \mid \text{item})
-	\label{eq:maximal}
+  \texttt{Resp} \sim 1 + a + b + c
+  + (1 + a + b + c \mid \text{subject}) + (1 \mid \text{item})
+  \label{eq:maximal}
 \end{equation}
 For the by-subject term alone, any non-empty subset of
 $\{$intercept, $a$, $b$, $c\}$, each with correlated or uncorrelated
@@ -170,17 +162,17 @@ total exceeds 50; including hybrid correlation structures it reaches
 approximately 100.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig_logistic_trap.pdf}
-	\caption{The logistic trap.
-		\textbf{A:}~Candidate RE structures grow combinatorially with the
-		number of fixed effects.
-		\textbf{B:}~Type~I error rate varies across simplification strategies
-		on identical null data; dashed line = nominal $\alpha$.
-		\textbf{C:}~For a single dataset, lower AIC does not imply a more
-		conservative test; no principled criterion selects among converging
-		models.}
-	\label{fig:logtrap}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig_logistic_trap.pdf}
+  \caption{The logistic trap.
+    \textbf{A:}~Candidate RE structures grow combinatorially with the
+    number of fixed effects.
+    \textbf{B:}~Type~I error rate varies across simplification strategies
+    on identical null data; dashed line = nominal $\alpha$.
+    \textbf{C:}~For a single dataset, lower AIC does not imply a more
+    conservative test; no principled criterion selects among converging
+    models.}
+  \label{fig:logtrap}
 \end{figure}
 
 Figure~\ref{fig:logtrap}A illustrates the combinatorial explosion.
@@ -209,10 +201,10 @@ variances of 152 (intercept) and 196 (slope).
 A logistic mixed model estimates the \emph{conditional} probability given
 each subject's random effects, not the \emph{marginal} probability:
 \begin{equation}
-	P(\text{yes}) =
-	\mathbb{E}_{b}\!\left[\operatorname{expit}(\beta_0 + \beta_1 c + b)\right]
-	\neq \operatorname{expit}(\beta_0 + \beta_1 c).
-	\label{eq:marginal}
+  P(\text{yes}) =
+  \mathbb{E}_{b}\!\left[\operatorname{expit}(\beta_0 + \beta_1 c + b)\right]
+  \neq \operatorname{expit}(\beta_0 + \beta_1 c).
+  \label{eq:marginal}
 \end{equation}
 When random-effects variance is large, the marginal probability is pulled
 toward 0.5 regardless of $\beta_0$.
@@ -230,18 +222,18 @@ the consequence: the logistic model's $p$-value for the condition effect
 rises toward 1 as random-effects variance grows.  The sign test is immune.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig_ceiling.pdf}
-	\caption{Near-ceiling effects cause logistic mixed models to fail
-		silently.
-		\textbf{A:}~Per-subject proportions; 97/120 participants are higher
-		in condition~2.
-		\textbf{B:}~Marginal attenuation: as random-slope SD grows, both
-		conditions' marginal probabilities converge; the dotted line marks
-		$\hat{\sigma}$ from \texttt{glmer}.
-		\textbf{C:}~The logistic model $p$-value rises toward 1; the sign
-		test ($p < 10^{-20}$) is unaffected.}
-	\label{fig:ceiling}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig_ceiling.pdf}
+  \caption{Near-ceiling effects cause logistic mixed models to fail
+    silently.
+    \textbf{A:}~Per-subject proportions; 97/120 participants are higher
+    in condition~2.
+    \textbf{B:}~Marginal attenuation: as random-slope SD grows, both
+    conditions' marginal probabilities converge; the dotted line marks
+    $\hat{\sigma}$ from \texttt{glmer}.
+    \textbf{C:}~The logistic model $p$-value rises toward 1; the sign
+    test ($p < 10^{-20}$) is unaffected.}
+  \label{fig:ceiling}
 \end{figure}
 
 % ================================================================
@@ -257,13 +249,13 @@ substantive empirical claim, not a neutral default, and it is no more
 justified \textit{a priori} than any other structural assumption.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig3_variance_assumption.pdf}
-	\caption{Type~I error under homogeneous (left) and heterogeneous
-		(right) between-subject variance.  The paired $t$-test maintains
-		nominal $\alpha$ in both cases.  Variance pooling inflates Type~I
-		error when the assumption is violated.}
-	\label{fig:assumption}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig3_variance_assumption.pdf}
+  \caption{Type~I error under homogeneous (left) and heterogeneous
+    (right) between-subject variance.  The paired $t$-test maintains
+    nominal $\alpha$ in both cases.  Variance pooling inflates Type~I
+    error when the assumption is violated.}
+  \label{fig:assumption}
 \end{figure}
 
 Figure~\ref{fig:assumption} shows the consequences.  When the assumption
@@ -283,27 +275,27 @@ the $t$-test is not individual responses but \emph{per-subject means}
 (proportions).  By the central limit theorem, with $n$ trials per
 subject, the distribution of the sample mean converges to:
 \begin{equation}
-	\bar{Y}_i \;\xrightarrow{d}\;
-	\mathcal{N}\!\left(p,\; \frac{p(1-p)}{n}\right).
-	\label{eq:clt}
+  \bar{Y}_i \;\xrightarrow{d}\;
+  \mathcal{N}\!\left(p,\; \frac{p(1-p)}{n}\right).
+  \label{eq:clt}
 \end{equation}
 The approximation is adequate whenever $n \cdot p > 5$ and
 $n \cdot (1-p) > 5$---conditions met by most psychology experiments.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig_clt.pdf}
-	\caption{The central limit theorem at work.
-		\textbf{A:}~With 8--32 items per condition, per-subject proportions
-		are already well-approximated by a Gaussian (solid curves = Gaussian
-		fit).
-		\textbf{B:}~Normality (KS test $p$-value; green = adequate) across
-		a range of true probabilities and item counts.  The approximation
-		breaks down only near 0 or 1 with very few items.
-		\textbf{C:}~Paired $t$-test and logistic regression produce
-		essentially identical $p$-values on the same datasets (correlation
-		$> 0.99$), with equivalent Type~I error and power.}
-	\label{fig:clt}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig_clt.pdf}
+  \caption{The central limit theorem at work.
+    \textbf{A:}~With 8--32 items per condition, per-subject proportions
+    are already well-approximated by a Gaussian (solid curves = Gaussian
+    fit).
+    \textbf{B:}~Normality (KS test $p$-value; green = adequate) across
+    a range of true probabilities and item counts.  The approximation
+    breaks down only near 0 or 1 with very few items.
+    \textbf{C:}~Paired $t$-test and logistic regression produce
+    essentially identical $p$-values on the same datasets (correlation
+    $> 0.99$), with equivalent Type~I error and power.}
+  \label{fig:clt}
 \end{figure}
 
 Figure~\ref{fig:clt}A shows that with as few as 8 items per condition,
@@ -325,15 +317,15 @@ metric---the log-odds ratio---cannot be meaningfully compared across
 experiments, populations, or conditions with different baseline rates.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig4_logodds.pdf}
-	\caption{The logit transformation and its interpretability problem.
-		\textbf{A:}~The logit compresses probabilities near 0 and 1.
-		\textbf{B:}~A fixed $\Delta\mathrm{logit} = 0.5$ corresponds to
-		very different probability differences depending on the baseline.
-		\textbf{C:}~Two experiments with identical $\Delta\mathrm{logit}$
-		have very different psychological meanings.}
-	\label{fig:logodds}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig4_logodds.pdf}
+  \caption{The logit transformation and its interpretability problem.
+    \textbf{A:}~The logit compresses probabilities near 0 and 1.
+    \textbf{B:}~A fixed $\Delta\mathrm{logit} = 0.5$ corresponds to
+    very different probability differences depending on the baseline.
+    \textbf{C:}~Two experiments with identical $\Delta\mathrm{logit}$
+    have very different psychological meanings.}
+  \label{fig:logodds}
 \end{figure}
 
 Figure~\ref{fig:logodds} illustrates the compression.  The same logit
@@ -343,7 +335,7 @@ probability scale means the same thing everywhere; a difference of 0.5
 on the logit scale does not.
 
 % ================================================================
-\section{The virtue circle: good intentions, irrational outcomes}
+\section{The social trap}
 \label{sec:social}
 
 The widespread adoption of complex models is not driven by evidence that
@@ -376,14 +368,14 @@ of the degrees of freedom that already existed.
 \label{sec:simple}
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig5_simple_stats.pdf}
-	\caption{Type~I error (left) and power (right) for four analysis
-		strategies.  The paired $t$-test and sign test maintain nominal
-		$\alpha$ and match the power of the maximal LMM on the
-		${\approx}55\%$ of datasets where it converges.  Random
-		simplification adds variability without improving power.}
-	\label{fig:simple}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig5_simple_stats.pdf}
+  \caption{Type~I error (left) and power (right) for four analysis
+    strategies.  The paired $t$-test and sign test maintain nominal
+    $\alpha$ and match the power of the maximal LMM on the
+    ${\approx}55\%$ of datasets where it converges.  Random
+    simplification adds variability without improving power.}
+  \label{fig:simple}
 \end{figure}
 
 Figure~\ref{fig:simple} shows that simple methods are not a statistical
@@ -396,17 +388,17 @@ The following covers the vast majority of designs in experimental
 psychology:
 
 \begin{enumerate}
-	\item \textbf{Binary outcomes, few repetitions:}
-	      binomial test on per-subject accuracy,
-	      or $\chi^2$ on a contingency table.
-	\item \textbf{Continuous outcomes, few repetitions:}
-	      paired $t$-test on per-subject means.
-	\item \textbf{Interactions:}
-	      $t$-test on differences of differences.
-	\item \textbf{Many repetitions per cell:}
-	      linear mixed model with random intercepts; add random slopes
-	      only if motivated, with a \textbf{pre-specified} simplification
-	      rule (e.g., drop slopes if singular).
+  \item \textbf{Binary outcomes, few repetitions:}
+        binomial test on per-subject accuracy,
+        or $\chi^2$ on a contingency table.
+  \item \textbf{Continuous outcomes, few repetitions:}
+        paired $t$-test on per-subject means.
+  \item \textbf{Interactions:}
+        $t$-test on differences of differences.
+  \item \textbf{Many repetitions per cell:}
+        linear mixed model with random intercepts; add random slopes
+        only if motivated, with a \textbf{pre-specified} simplification
+        rule (e.g., drop slopes if singular).
 \end{enumerate}
 
 The key criterion is not model richness but \emph{pre-registrability}.
