@@ -235,11 +235,11 @@ to any near-ceiling design.  A logistic mixed model does not estimate the
 The two are related by:
 %
 \begin{equation}
-	P(\text{yes}) \;=\;
-	\mathbb{E}_{b}\!\left[\operatorname{expit}(\beta_0 + \beta_1 c + b)\right]
-	\;\neq\;
-	\operatorname{expit}(\beta_0 + \beta_1 c),
-	\label{eq:marginal}
+  P(\text{yes}) \;=\;
+  \mathbb{E}_{b}\!\left[\operatorname{expit}(\beta_0 + \beta_1 c + b)\right]
+  \;\neq\;
+  \operatorname{expit}(\beta_0 + \beta_1 c),
+  \label{eq:marginal}
 \end{equation}
 %
 and when the random-effects variance $\sigma^2$ is large, the marginal
@@ -270,22 +270,22 @@ function or integration method, and detects the effect with overwhelming
 confidence.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig_ceiling.pdf}
-	\caption{Near-ceiling effects cause logistic mixed models to fail
-		silently.
-		\textbf{A:}~Per-subject proportions in both conditions; the effect is
-		visible to the naked eye (97/120 participants show higher accuracy in
-		condition~2).
-		\textbf{B:}~The marginal attenuation effect: as the random-slope
-		variance grows (x-axis), the model's implied marginal probability for
-		both conditions converges toward 0.5, regardless of the true
-		individual-level probabilities.  The dotted line marks the variance
-		estimated by \texttt{glmer} in the original data.
-		\textbf{C:}~As a result, the fixed-effect $p$-value from the logistic
-		mixed model rises toward 1; the sign test ($p < 10^{-20}$) is
-		unaffected.}
-	\label{fig:ceiling}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig_ceiling.pdf}
+  \caption{Near-ceiling effects cause logistic mixed models to fail
+    silently.
+    \textbf{A:}~Per-subject proportions in both conditions; the effect is
+    visible to the naked eye (97/120 participants show higher accuracy in
+    condition~2).
+    \textbf{B:}~The marginal attenuation effect: as the random-slope
+    variance grows (x-axis), the model's implied marginal probability for
+    both conditions converges toward 0.5, regardless of the true
+    individual-level probabilities.  The dotted line marks the variance
+    estimated by \texttt{glmer} in the original data.
+    \textbf{C:}~As a result, the fixed-effect $p$-value from the logistic
+    mixed model rises toward 1; the sign test ($p < 10^{-20}$) is
+    unaffected.}
+  \label{fig:ceiling}
 \end{figure}
 
 % ================================================================
