@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python run_all.py)"
-    ]
-  }
-}
