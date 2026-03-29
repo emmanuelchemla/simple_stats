@@ -11,7 +11,6 @@
 \usepackage{hyperref}
 \usepackage{microtype}
 \usepackage[labelfont=bf, font=small]{caption}
-\usepackage{enumitem}
 \usepackage{natbib}
 \bibliographystyle{apalike}
 
@@ -122,22 +121,22 @@ are now the default.  Consider the following five desiderata, each of
 which is individually defensible and widely taught as good practice:
 
 \begin{enumerate}[label=(\alph*)]
-	\item \textbf{Analyze all the data.}  Do not subset to the conditions
-	      you intend to compare; use all observations so that the random-effects
-	      structure can be estimated on the full design
-	      \citep[cf.][]{barr2013random}.
-	\item \textbf{Use a maximal model.}  Include all random slopes
-	      justified by the design \citep{barr2013random}.
-	\item \textbf{Simplify until convergence.}  When the maximal model fails
-	      to converge---which, with binary outcomes, is the rule rather than
-	      the exception---remove random effects until the optimizer succeeds.
-	\item \textbf{Compare models with identical RE structures.}
-	      When computing a likelihood-ratio test for a fixed effect, the two
-	      compared models must share the same random-effects specification
-	      \citep{barr2013random}.
-	\item \textbf{Pre-register the analysis.}  Specify the exact model
-	      before data collection so that the analysis cannot be adjusted
-	      in light of the results.
+  \item \textbf{Analyze all the data.}  Do not subset to the conditions
+        you intend to compare; use all observations so that the random-effects
+        structure can be estimated on the full design
+        \citep[cf.][]{barr2013random}.
+  \item \textbf{Use a maximal model.}  Include all random slopes
+        justified by the design \citep{barr2013random}.
+  \item \textbf{Simplify until convergence.}  When the maximal model fails
+        to converge---which, with binary outcomes, is the rule rather than
+        the exception---remove random effects until the optimizer succeeds.
+  \item \textbf{Compare models with identical RE structures.}
+        When computing a likelihood-ratio test for a fixed effect, the two
+        compared models must share the same random-effects specification
+        \citep{barr2013random}.
+  \item \textbf{Pre-register the analysis.}  Specify the exact model
+        before data collection so that the analysis cannot be adjusted
+        in light of the results.
 \end{enumerate}
 
 The combination of (c), (d), and (e) is \emph{internally inconsistent}.
@@ -155,10 +154,10 @@ To make this concrete, consider a design with a single four-level factor
 in the model.  The maximal model is:
 %
 \begin{equation}
-	\texttt{Resp} \;\sim\; 1 + a + b + c
-	\;+\; (1 + a + b + c \mid \text{subject})
-	\;+\; (1 \mid \text{item})
-	\label{eq:maximal}
+  \texttt{Resp} \;\sim\; 1 + a + b + c
+  \;+\; (1 + a + b + c \mid \text{subject})
+  \;+\; (1 \mid \text{item})
+  \label{eq:maximal}
 \end{equation}
 %
 For the by-subject term alone, the analyst can include any non-empty
@@ -199,20 +198,20 @@ analyzing a relevant subset with a rich one.  This assumption is not
 examined, let alone justified.
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{../code/fig_logistic_trap.pdf}
-	\caption{The logistic trap.
-		\textbf{A:}~Number of candidate random-effects structures grows
-		combinatorially with the number of fixed effects; a four-level
-		factor already yields 26 by-subject RE specifications.
-		\textbf{B:}~Type~I error rate (null simulations, $n=32$ subjects)
-		varies across simplification strategies applied to identical data;
-		the dashed line marks the nominal $\alpha = 0.05$.
-		\textbf{C:}~For a single null dataset, better model fit (lower
-		pseudo-AIC) does not imply a more conservative $p$-value; no
-		principled pre-registrable criterion selects among converging
-		models.}
-	\label{fig:logtrap}
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig_logistic_trap.pdf}
+  \caption{The logistic trap.
+    \textbf{A:}~Number of candidate random-effects structures grows
+    combinatorially with the number of fixed effects; a four-level
+    factor already yields 26 by-subject RE specifications.
+    \textbf{B:}~Type~I error rate (null simulations, $n=32$ subjects)
+    varies across simplification strategies applied to identical data;
+    the dashed line marks the nominal $\alpha = 0.05$.
+    \textbf{C:}~For a single null dataset, better model fit (lower
+    pseudo-AIC) does not imply a more conservative $p$-value; no
+    principled pre-registrable criterion selects among converging
+    models.}
+  \label{fig:logtrap}
 \end{figure}
 
 % ================================================================

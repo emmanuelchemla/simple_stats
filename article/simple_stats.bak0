@@ -1,0 +1,252 @@
+% simple_stats.tex
+% Compile with:  pdflatex simple_stats && pdflatex simple_stats
+% Figures are expected in ../code/ (run_all.py must be run first)
+
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage[labelfont=bf, font=small]{caption}
+\usepackage{natbib}
+\bibliographystyle{apalike}
+
+\setlength{\parskip}{4pt}
+
+% ----------------------------------------------------------------
+\title{\textbf{Keep it simple:}\\
+       a case for minimal statistical models in psychology}
+\author{Anonymous}
+\date{\today}
+% ----------------------------------------------------------------
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  \noindent
+  The push for maximally complex random-effects models in psychology rests
+  on a defensible theoretical principle, but the practical consequences
+  are troublesome: models fail to converge, pre-registration becomes
+  nearly impossible, and an implicit variance-homogeneity assumption goes
+  unexamined.  Logistic mixed models add a further problem: the log-odds
+  scale is not psychologically interpretable.  We argue that the
+  simplest test compatible with the research question---a paired
+  \(t\)-test, a sign test, or a binomial test---is not a compromise.
+  It is the most reliable and transparent analysis strategy available,
+  and simulations show it matches complex models in both Type~I error
+  control and power.
+\end{abstract}
+
+% ================================================================
+\section{Introduction: the appeal of complex models}
+\label{sec:intro}
+
+A recurring theme in methodological debates in psychology is the demand
+for more complex statistical models \citep{barr2013random,
+  matuschek2017balancing}.  The argument is compelling in principle:
+if participants and items both contribute variance, a model that ignores
+one source will produce anti-conservative \(p\)-values.  The prescription
+that has gained the most traction---``keep it maximal''
+\citep{barr2013random}---recommends including every random slope
+justified by the experimental design.
+
+This paper does not dispute the theoretical rationale.  It asks whether
+the prescription is workable in practice, and whether its cost exceeds
+its benefit.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig1_forking_paths.pdf}
+  \caption{The number of distinct random-effects structures for a
+    standard 2\(\times\)2 within-subjects design crossed with items.
+    Left: model count by total number of random-effects parameters.
+    Right: share of minimal, intermediate, and maximal configurations.
+    The analyst faces hundreds of plausible model formulas before
+    seeing any data.}
+  \label{fig:forking}
+\end{figure}
+
+Figure~\ref{fig:forking} illustrates the problem.  For a 2\(\times\)2
+design with two grouping factors (participants and items), there are
+hundreds of distinct \texttt{lme4}-style model formulas.  Even before
+consulting the data, the analyst must choose among them.  This is a
+garden of forking paths \citep{gelman2014statistical} built directly
+into the measurement model.
+
+% ================================================================
+\section{Convergence failures make pre-registration impractical}
+\label{sec:convergence}
+
+Pre-registration is arguably the single most effective tool for
+controlling false-positive rates in confirmatory research.  Its value
+depends on being specific: a pre-registered analysis must name the
+exact model to be fit, not a family of possible models.
+
+The problem with maximal models is that they fail to converge with
+sample sizes that are common in psychology.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\linewidth]{../code/fig2_convergence.pdf}
+  \caption{Convergence rate as a function of sample size and model
+    complexity for a two-condition within-subjects design (20 items per
+    condition).  Maximal models (random intercepts, slopes, and their
+    correlation) converge reliably only with very large samples.  The
+    paired \(t\)-test, which requires no iterative optimization, always
+    converges.}
+  \label{fig:convergence}
+\end{figure}
+
+Figure~\ref{fig:convergence} shows that convergence rates drop sharply
+as random-effects complexity increases, especially for sample sizes
+below 80 participants.  A researcher who pre-registers a maximal model
+and then encounters a singular fit must either (a)~violate the
+pre-registration by simplifying or (b)~report an uninterpretable result.
+In practice, researchers choose option~(a), selecting a simplified model
+post-hoc from the many plausible alternatives shown in
+Figure~\ref{fig:forking}.  The maximal model recommendation thus
+\emph{undermines} pre-registration in exactly the situations where it
+is most needed.
+
+% ================================================================
+\section{A hidden assumption: variance homogeneity across conditions}
+\label{sec:assumption}
+
+Fitting a single random-slope variance across conditions implicitly
+assumes that the between-subject variability in the effect is the same
+in all conditions.  This is a substantive assumption about the data,
+not a neutral ``default''.  It is no more justified \textit{a priori}
+than any other structural assumption.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig3_variance_assumption.pdf}
+  \caption{Type~I error (null simulations) under homogeneous variance
+    (left) and heterogeneous variance (right).  The paired \(t\)-test,
+    which makes no pooling assumption, maintains nominal \(\alpha\) in
+    both cases.  The pooling approach---which mimics what a maximal LMM
+    does---introduces inflation when variances differ across conditions.}
+  \label{fig:assumption}
+\end{figure}
+
+Figure~\ref{fig:assumption} illustrates the consequences.  When the
+variance homogeneity assumption holds, both approaches behave similarly.
+When it is violated---a plausible scenario whenever one condition is
+harder, faster, or more variable than another---the pooling approach
+inflates the Type~I error rate.  The simple approach, which treats each
+condition's variability separately, is robust.
+
+% ================================================================
+\section{Log-odds are not psychologically interpretable}
+\label{sec:logodds}
+
+A separate but related problem concerns logistic mixed models, now the
+default for binary outcome data.  Logistic regression expresses effects
+in log-odds (logits).  The logit scale has attractive theoretical
+properties, but it is not psychologically meaningful.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig4_logodds.pdf}
+  \caption{The logit transformation and its consequences for effect
+    interpretation.  \textbf{A:}~The logit function compresses
+    probabilities near 0 and 1.  \textbf{B:}~A fixed effect of
+    \(\Delta\mathrm{logit} = 0.5\) corresponds to probability
+    differences ranging from near 0 to over 0.12 depending on the
+    baseline.  \textbf{C:}~Two experiments with identical logit
+    effects (\(\Delta = 0.5\)) have very different probability
+    differences when baseline rates differ.}
+  \label{fig:logodds}
+\end{figure}
+
+As Figure~\ref{fig:logodds} shows, the same logit effect translates into
+radically different probability differences depending on the baseline
+rate.  Comparing log-odds effects across experiments, populations, or
+conditions with different baselines is therefore misleading.  The
+probability scale, by contrast, is directly interpretable: a difference
+of 0.05 means the same thing regardless of context.
+
+For binary outcomes we therefore recommend the sign test (one-sample
+binomial test on per-subject accuracy) rather than a logistic model.
+When more precision is needed and the design is well-powered, a linear
+probability model with a \(t\)-test on the differences is also acceptable.
+
+% ================================================================
+\section{Recommendation: simple tests, understood perfectly}
+\label{sec:recommendation}
+
+Our prescription is close to the inverse of ``keep it maximal'': use
+the simplest test compatible with the research question, and understand
+it completely before running it.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../code/fig5_simple_stats.pdf}
+  \caption{Type~I error (left) and power (right) for four analysis
+    strategies.  The paired \(t\)-test and sign test maintain nominal
+    alpha and achieve power comparable to the maximal LMM (evaluated
+    only on the~\(\approx\)55\% of simulations where it converges).
+    The LMM with random simplification introduces variability without
+    improving power.}
+  \label{fig:simple}
+\end{figure}
+
+Figure~\ref{fig:simple} shows that simple methods are not a statistical
+compromise.  They control the false-positive rate and achieve power
+comparable to complex models, while being fully transparent and
+pre-registrable.
+
+\paragraph{Decision rule.}
+The following hierarchy covers the vast majority of designs in
+experimental psychology:
+
+\begin{enumerate}
+  \item \textbf{Binary outcomes, few repetitions:}
+        binomial test on per-subject accuracy.
+  \item \textbf{Continuous outcomes, few repetitions:}
+        paired \(t\)-test on per-subject means.
+  \item \textbf{Interactions:}
+        \(t\)-test on differences of differences (no special software
+        required).
+  \item \textbf{Continuous outcomes, many repetitions per cell:}
+        linear mixed model with random intercepts and, if motivated,
+        random slopes.  The simplification rule (e.g., drop slopes if
+        singular) must be specified \textbf{before} data collection,
+        possibly even drawn at random from a pre-specified list.
+\end{enumerate}
+
+The key criterion is not model richness but \emph{pre-registrability}.
+A test that can be specified unambiguously before data collection, and
+that will run without failure on realistic sample sizes, provides
+stronger scientific guarantees than a theoretically superior model
+that in practice requires post-hoc adjustment.
+
+\paragraph{What about random item effects?}
+The concern about ignoring item variance is legitimate but often
+overstated.  When items are sampled at random from a well-defined
+population, a random-items term is appropriate; a separate
+by-items analysis \citep{clark1973language} or a combined
+\(F_1 \times F_2\) procedure achieves the same goal without the
+convergence problems of maximal models.  When items are fixed stimuli
+(the same set used in every study), their variance does not generalise
+and need not be modelled.
+
+\section*{Conclusion}
+
+Scientific progress is best served by analyses that are transparent,
+pre-registrable, and understood by the researcher who runs them.
+Complex models fail on all three counts more often than is acknowledged.
+Simple tests---binomial, \(\chi^2\), \(t\)-test---are not a sign of
+methodological laziness.  Used appropriately, they are the most honest
+and most reproducible tools available.
+
+Researchers have wasted large amounts of time trying to make inappropriate models work, and not understanding them in the first place without an enormous ammount of effort that basically turns them into statisticians, a carreer on its own that takes a lifetime.
+
+% ================================================================
+\bibliography{references}
+
+\end{document}
